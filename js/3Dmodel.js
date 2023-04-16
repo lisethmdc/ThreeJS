@@ -21,15 +21,22 @@ const controls = new OrbitControls(camera, renderer.domElement);
 camera.position.set(30, 10, 10);
 controls.update();
 
+scene.add(new THREE.AxesHelper(10));
+
 //* Add light
-var light = new THREE.AmbientLight(0xffffff);
+const light = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(light);
+
+const dl = new THREE.DirectionalLight(0xffffff, 0,5);
+dl.position.set(0, 6, 0);
+const dlHelper = new THREE.DirectionalLightHelper(dl, 3);
+scene.add(dl, dlHelper);
 
 
 / Add 3D model */
 const gltfLoader = new GLTFLoader(); //loader depends on file type
 
-gltfLoader.load('/assets/textures/scene.gltf', (gltf) => {
+gltfLoader.load('/assets/models/scene.gltf', (gltf) => {
     gltf.scene.position.y = -3.5; //position model top/bottom
     gltf.scene.scale.set(10, 10, 10);
     scene.add(gltf.scene);
